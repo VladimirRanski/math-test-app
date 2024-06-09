@@ -1,36 +1,116 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Math Test App
 
-## Getting Started
+Math Test App - это приложение для создания и прохождения математических тестов. Пользователи могут настроить тест, указав количество вопросов, диапазон значений и операторов. После прохождения теста отображается результат.
 
-First, run the development server:
+## Установка
+
+1. Клонируйте репозиторий:
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone https://github.com/VladimirRanski/math-test-app.git
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+2. Перейдите в директорию проекта:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+cd math-test-app
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+3. Установите зависимости:
 
-## Learn More
+```bash
+npm install
+```
 
-To learn more about Next.js, take a look at the following resources:
+## Использование
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+1. Запустите приложение:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+```bash
+npm start
+```
 
-## Deploy on Vercel
+2. Откройте браузер и перейдите по адресу `http://localhost:3000`.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+3. Настройте тест, указав количество вопросов, диапазон значений и операторы.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+4. Пройдите тест и получите результаты.
+
+## Структура проекта
+
+```markdown
+math-test-app/
+├── public/                # Публичные файлы
+├── src/                   # Исходный код
+│   ├── components/        # Компоненты приложения
+│   │   ├── Settings/      # Компонент для настройки теста
+│   │   ├── Test/          # Компонент для прохождения теста
+│   │   └── Result/        # Компонент для отображения результатов
+│   ├── context/           # Контексты для глобального состояния
+│   │   └── LanguageContext.tsx # Контекст для языка
+│   ├── pages/             # Страницы приложения
+│   │   └── Home.tsx       # Главная страница
+│   ├── styles/            # Стили приложения
+│   │   └── page.module.scss
+│   └── index.tsx          # Точка входа
+├── .gitignore             # Файлы и папки, игнорируемые Git
+├── package.json           # Зависимости и скрипты проекта
+└── README.md              # Документация проекта
+```
+
+## Компоненты
+
+### Home
+
+Главная страница приложения. Управляет состоянием вопросов, результатов и ошибок. Содержит функции для начала теста, завершения теста и перезапуска.
+
+### Settings
+
+Компонент для настройки теста. Позволяет пользователю указать количество вопросов, диапазон значений и операторы. Передает настройки в `Home` компонент для начала теста.
+
+### Test
+
+Компонент для прохождения теста. Отображает текущий вопрос и позволяет пользователю ввести ответ. Содержит логику для перехода к следующему или предыдущему вопросу и завершения теста.
+
+### Result
+
+Компонент для отображения результатов теста. Показывает количество правильных и неправильных ответов, время, затраченное на тест, и позволяет перезапустить тест.
+
+## Контексты
+
+### LanguageContext
+
+Контекст для управления текущим языком приложения. Предоставляет функции для переключения языка и переводы для компонентов.
+
+## API
+
+Для генерации вопросов используется API. Пример запроса для получения вопросов:
+
+```bash
+GET /api/generate?count=10&range=20&operators=+,-,*
+```
+
+Параметры:
+- `count`: Количество вопросов
+- `range`: Диапазон значений
+- `operators`: Операторы (например, `+,-,*`)
+
+## Лицензия
+
+Этот проект лицензирован под лицензией MIT. Подробности см. в файле [LICENSE](LICENSE).
+
+## Авторы
+
+- [Vladimir Ranski](https://github.com/VladimirRanski)
+
+## Вклад
+
+Вкладчики приветствуются! Пожалуйста, следуйте шагам ниже, чтобы внести свой вклад:
+
+1. Форкните репозиторий.
+2. Создайте ветку для вашего изменения (`git checkout -b feature/YourFeature`).
+3. Внесите изменения и зафиксируйте их (`git commit -am 'Add some feature'`).
+4. Запушьте ветку (`git push origin feature/YourFeature`).
+5. Откройте Pull Request.
+
+---
