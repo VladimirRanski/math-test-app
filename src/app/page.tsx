@@ -37,7 +37,7 @@ const Home: React.FC = () => {
       const data = await response.json();
       setQuestions(data);
       setResult(null);
-    } catch (err) {
+    } catch (err:any) {
       setError(err.message);
     }
   };
