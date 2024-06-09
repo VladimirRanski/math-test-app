@@ -3,7 +3,7 @@
 import React, { createContext, useContext, useState, ReactNode } from "react";
 
 // Типы для контекста языка
-type Language = "en" | "ru";
+export type Language = "en" | "ru";
 
 type LanguageContextType = {
   language: Language;

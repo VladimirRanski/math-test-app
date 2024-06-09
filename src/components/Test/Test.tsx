@@ -85,7 +85,9 @@ const Test: React.FC<TestProps> = ({ questions, onComplete }) => {
 const handleAnswerSubmit = (event: React.FormEvent) => {
   event.preventDefault();
   const form = event.target as HTMLFormElement;
-  const answer = parseFloat(event.currentTarget.elements.answer.value);
+const answerInput = form.elements.namedItem("answer") as HTMLInputElement;
+const answer = parseFloat(answerInput.value);
+
 
   const updatedAnswers = { ...userAnswers, [currentQuestionIndex]: answer };
 

@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { useLanguage } from "../../context/LanguageContext";
+import { useLanguage, Language } from "../../context/LanguageContext";
 import { useTheme } from "../../context/ThemeContext";
 import styles from "./Settings.module.scss";
 

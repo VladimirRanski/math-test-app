@@ -43,7 +43,10 @@ const Home: React.FC = () => {
   };
 
   const handleComplete = (correct: number, total: number, incorrectQuestions: Question[], timeTaken: number) => {
-    setResult({ correct, total, incorrectQuestions, questions, timeTaken });
+    
+    if (questions) {setResult({ correct, total, incorrectQuestions, questions, timeTaken });}
+
+    
     setQuestions(null);
   };
 
