@@ -1,74 +1,96 @@
-import type { NextApiRequest, NextApiResponse } from "next";
+import { NextApiRequest, NextApiResponse } from "next";
 
 type Example = {
   num1: number;
   num2: number;
-  operator: string;
+  operator?: string;
   answer: number;
+  options?: number[];
 };
 
-// Эндпоинт для генерации математических примеров
+// Функция для выполнения математической операции
+const calculateAnswer = (
+  num1: number,
+  num2: number,
+  operator: string
+): number => {
+  switch (operator) {
+    case "+":
+      return num1 + num2;
+    case "-":
+      return num1 - num2;
+    case "*":
+      return num1 * num2;
+    case "/":
+      return Math.floor(num1 / num2); // Целочисленное деление
+    default:
+      throw new Error("Unsupported operator");
+  }
+};
+
+// Генерация вариантов ответов для вопросов
+const generateOptions = (correctAnswer: number, range: number): number[] => {
+  const options = new Set<number>();
+  options.add(correctAnswer);
+
+  while (options.size < 4) {
+    const option = Math.floor(Math.random() * (2 * range + 1)) - range;
+    if (!options.has(option)) {
+      options.add(option);
+    }
+  }
+
+  return Array.from(options).sort(() => Math.random() - 0.5);
+};
+
+// Генерация математических примеров
 export default function handler(req: NextApiRequest, res: NextApiResponse) {
-  const { count, range, operators } = req.query;
-
-  if (!count || !range || !operators) {
-    res.status(400).json({ error: "Missing query parameters" });
-    return;
-  }
-
-  const countNumber = parseInt(count as string);
-  const rangeNumber = parseInt(range as string);
-  const operatorList = (operators as string)
-    .split(",")
-    .map((op) => decodeURIComponent(op));
-
-  if (!countNumber || !rangeNumber || operatorList.length === 0) {
-    res.status(400).json({ error: "Invalid query parameters" });
-    return;
-  }
-
+  const { count, range, operators, type } = req.query;
   const examples: Example[] = [];
 
+  const countNumber = Number(count);
+  const rangeNumber = Number(range);
+  const operatorsArray = decodeURIComponent(operators as string).split(",");
+
+  // Генерация заданного количества примеров
   for (let i = 0; i < countNumber; i++) {
-    const operator =
-      operatorList[Math.floor(Math.random() * operatorList.length)];
     let num1 = Math.floor(Math.random() * (rangeNumber + 1));
-    let num2 = Math.floor(Math.random() * (rangeNumber + 1));
-    let answer;
-
-    switch (operator) {
-      case "+":
-        if (num1 + num2 > rangeNumber) {
-          num2 = rangeNumber - num1;
-        }
-        answer = num1 + num2;
-        break;
-      case "-":
-        if (num2 > num1) {
-          [num1, num2] = [num2, num1];
-        }
-        answer = num1 - num2;
-        break;
-      case "*":
-        if ((num1 === 0) || (num1 === 1)) num1 = 2;
-        num2 = Math.floor(Math.random() * 10);
-        if ((num2 === 0) || (num2 === 1)) num2 = 2;
-        answer = num1 * num2;
-        break;
-      case "/":
-        if (num2 === 0) num2 = 1;
-        num1 =
-          num2 *
-          Math.floor(Math.random() * (Math.floor(rangeNumber / num2) + 1));
-        answer = Math.floor(num1 / num2);
-        break;
-      default:
-        res.status(400).json({ error: "Unsupported operator" });
-        return;
+    let num2;
+    let operator;
+    if (type === "comparison") {
+      num2 = Math.floor(Math.random() * (rangeNumber + 1));
+    } else {
+      operator =
+        operatorsArray[Math.floor(Math.random() * operatorsArray.length)];
+      if (operator === "*") {
+        num2 = Math.floor(Math.random() * 10) + 1;
+      } else if (operator === "/") {
+        // Генерация деления с целочисленным результатом и без деления на 0
+        do {
+          num1 = Math.floor(Math.random() * (rangeNumber + 1));
+          num2 = Math.floor(Math.random() * (rangeNumber - 1)) + 1; // num2 не может быть 0
+        } while (num1 % num2 !== 0 || num1 / num2 < 0);
+      } else if (operator === "-") {
+        // Генерация вычитания с положительным результатом
+        do {
+          num1 = Math.floor(Math.random() * (rangeNumber + 1));
+          num2 = Math.floor(Math.random() * (rangeNumber + 1));
+        } while (num1 - num2 < 0);
+      } else {
+        num2 = Math.floor(Math.random() * (rangeNumber + 1));
+      }
     }
-
-    examples.push({ num1, num2, operator, answer });
+    const answer =
+      type === "comparison"
+        ? num1 - num2
+        : calculateAnswer(num1, num2, operator);
+    const options =
+      type === "multiple_choice"
+        ? generateOptions(answer, rangeNumber)
+        : undefined;
+    examples.push({ num1, num2, operator, answer, options });
   }
 
+  // Возвращение сгенерированных примеров в ответе
   res.status(200).json(examples);
 }
