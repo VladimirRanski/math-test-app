@@ -7,15 +7,15 @@ import MultipleChoiceTest from "../components/MultipleChoiceTest/MultipleChoiceT
 import ComparisonTest from "../components/ComparisonTest/ComparisonTest";
 import Result from "../components/Result/Result";
 import styles from "./page.module.scss";
-import { Question } from '@/types';
+import { TQuestion } from '@/types';
 
 const Home: React.FC = () => {
-  const [questions, setQuestions] = useState<Question[]>([]); // Используем пустой массив по умолчанию
+  const [questions, setQuestions] = useState<TQuestion[]>([]); // Используем пустой массив по умолчанию
   const [result, setResult] = useState<{
     correct: number;
     total: number;
-    incorrectQuestions: Question[];
-    questions: Question[];
+    incorrectQuestions: TQuestion[];
+    questions: TQuestion[];
     timeTaken: number;
   } | null>(null);
   const [error, setError] = useState<string | null>(null);
@@ -40,7 +40,7 @@ const Home: React.FC = () => {
     setIsLoading(false);
   };
 
-  const handleComplete = (correct: number, total: number, incorrectQuestions: Question[], timeTaken: number) => {
+  const handleComplete = (correct: number, total: number, incorrectQuestions: TQuestion[], timeTaken: number) => {
     setResult({ correct, total, incorrectQuestions, questions, timeTaken });
     setQuestions([]); // Сбрасываем к пустому массиву
   };
