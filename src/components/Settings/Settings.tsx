@@ -1,12 +1,12 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { useLanguage, Language } from "../../context/LanguageContext";
+import { Language, useLanguage } from "../../context/LanguageContext";
 import { useTheme } from "../../context/ThemeContext";
 import styles from "./Settings.module.scss";
 
 type SettingsProps = {
-  onStart: (count: number, range: number, operators: string[]) => void;
+  onStart: (count: number, range: number, operators: string[], type: string) => void;
 };
 
 // Переводы для настроек
@@ -15,12 +15,20 @@ const translations = {
     numberOfQuestions: "Number of Questions:",
     rangeOfNumbers: "Range of Numbers:",
     operators: "Operators:",
+    testType: "Test Type:",
+    arithmetic: "Arithmetic",
+    multipleChoice: "Multiple Choice",
+    comparison: "Comparison",
     startTest: "Start Test",
   },
   ru: {
     numberOfQuestions: "Количество вопросов:",
     rangeOfNumbers: "Диапазон чисел:",
     operators: "Операторы:",
+    testType: "Тип теста:",
+    arithmetic: "Арифметика",
+    multipleChoice: "Множественный выбор",
+    comparison: "Сравнение",
     startTest: "Начать тест",
   },
 };
@@ -29,6 +37,7 @@ const Settings: React.FC<SettingsProps> = ({ onStart }) => {
   const [count, setCount] = useState(5);
   const [range, setRange] = useState(10);
   const [selectedOperators, setSelectedOperators] = useState<string[]>(["+", "-", "*", "/"]);
+  const [testType, setTestType] = useState("arithmetic");
   const { language, setLanguage } = useLanguage();
   const { darkMode, setDarkMode } = useTheme();
 
@@ -38,6 +47,7 @@ const Settings: React.FC<SettingsProps> = ({ onStart }) => {
     const savedRange = localStorage.getItem("range");
     const savedOperators = localStorage.getItem("operators");
     const savedLanguage = localStorage.getItem("language");
+    const savedTestType = localStorage.getItem("testType");
 
     if (savedTheme) {
       setDarkMode(savedTheme === "dark");
@@ -54,6 +64,9 @@ const Settings: React.FC<SettingsProps> = ({ onStart }) => {
     if (savedLanguage) {
       setLanguage(savedLanguage as Language);
     }
+    if (savedTestType) {
+      setTestType(savedTestType);
+    }
   }, [setDarkMode, setLanguage]);
 
   useEffect(() => {
@@ -62,7 +75,8 @@ const Settings: React.FC<SettingsProps> = ({ onStart }) => {
     localStorage.setItem("range", range.toString());
     localStorage.setItem("operators", selectedOperators.join(","));
     localStorage.setItem("language", language);
-  }, [darkMode, count, range, selectedOperators, language]);
+    localStorage.setItem("testType", testType);
+  }, [darkMode, count, range, selectedOperators, language, testType]);
 
   const handleOperatorChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const value = event.target.value;
@@ -74,20 +88,19 @@ const Settings: React.FC<SettingsProps> = ({ onStart }) => {
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
     const encodedOperators = selectedOperators.map(op => encodeURIComponent(op));
-    onStart(count, range, encodedOperators);
+    onStart(count, range, encodedOperators, testType);
   };
 
   const t = translations[language];
 
   return (
     <div className={styles.settings}>
-      <div className={styles.btnBlock}><button onClick={() => setDarkMode(!darkMode)}>
+      <button onClick={() => setDarkMode(!darkMode)}>
         {darkMode ? "Светлая тема" : "Темная тема"}
       </button>
       <button onClick={() => setLanguage(language === "en" ? "ru" : "en")}>
-        {(language === "en") ? "Русский" : "English"}
-      </button></div>
-      
+        {language === "en" ? "Русский" : "English"}
+      </button>
       <form onSubmit={handleSubmit}>
         <div className={styles.field}>
           <label>{t.numberOfQuestions}</label>
@@ -123,6 +136,38 @@ const Settings: React.FC<SettingsProps> = ({ onStart }) => {
                 {operator}
               </label>
             ))}
+          </div>
+        </div>
+        <div className={styles.field}>
+          <label>{t.testType}</label>
+          <div>
+            <label>
+              <input
+                type="radio"
+                value="arithmetic"
+                checked={testType === "arithmetic"}
+                onChange={(e) => setTestType(e.target.value)}
+              />
+              {t.arithmetic}
+            </label>
+            <label>
+              <input
+                type="radio"
+                value="multiple_choice"
+                checked={testType === "multiple_choice"}
+                onChange={(e) => setTestType(e.target.value)}
+              />
+              {t.multipleChoice}
+            </label>
+            <label>
+              <input
+                type="radio"
+                value="comparison"
+                checked={testType === "comparison"}
+                onChange={(e) => setTestType(e.target.value)}
+              />
+              {t.comparison}
+            </label>
           </div>
         </div>
         <button type="submit">{t.startTest}</button>
