@@ -5,15 +5,6 @@ import { useLanguage } from "../../context/LanguageContext";
 import styles from "./MultipleChoiceTest.module.scss";
 import { Question } from '@/types';
 
-// type Question = {
-//   num1: number;
-//   num2: number;
-//   operator?: string;
-//   answer: number;
-//   options: number[];
-//   userAnswer?: number;
-// };
-
 type MultipleChoiceTestProps = {
   questions: Question[];
   onComplete: (
@@ -24,7 +15,6 @@ type MultipleChoiceTestProps = {
   ) => void;
 };
 
-// Переводы для теста с вариантами ответов
 const translations = {
   en: {
     question: "Question",
@@ -56,12 +46,19 @@ const MultipleChoiceTest: React.FC<MultipleChoiceTestProps> = ({ questions, onCo
     const updatedAnswers = [...userAnswers];
     updatedAnswers[currentQuestionIndex] = answer;
     setUserAnswers(updatedAnswers);
+    
+      if (userAnswers[currentQuestionIndex] === null) {
+    console.log('Пожалуйста, выберите ответ перед продолжением.');
+    return;
+  }
   };
 
   const handleNext = () => {
+
     if (currentQuestionIndex < questions.length - 1) {
       setCurrentQuestionIndex((prev) => prev + 1);
     } else {
+      setTimeout(() => {
       const timeTaken = (Date.now() - startTime) / 1000;
       const answeredQuestions = questions.map((q, i) => ({
         ...q,
@@ -71,7 +68,9 @@ const MultipleChoiceTest: React.FC<MultipleChoiceTestProps> = ({ questions, onCo
         (q) => q.userAnswer !== q.answer
       );
       const correct = questions.length - incorrectQuestions.length;
+      questions.map((e, i) => e.userAnswer = answeredQuestions[i].userAnswer);
       onComplete(correct, questions.length, incorrectQuestions, timeTaken);
+      }, 0);
     }
   };
 
@@ -82,21 +81,19 @@ const MultipleChoiceTest: React.FC<MultipleChoiceTestProps> = ({ questions, onCo
       </div>
       <div className={styles.options}>
         {questions[currentQuestionIndex].options?.map((option, index) => (
-          <button key={index} onClick={() => handleAnswerSelect(option)}>
+          <button
+            key={index}
+            className={userAnswers[currentQuestionIndex] === option ? styles.selected : ""}
+            onClick={() => handleAnswerSelect(option)}
+          >
             {option}
           </button>
         ))}
       </div>
       <div className={styles.navigation}>
-        {currentQuestionIndex < questions.length - 1 ? (
-          <button onClick={handleNext}>
-            {t.next}
-          </button>
-        ) : (
-          <button onClick={handleNext}>
-            {t.finish}
-          </button>
-        )}
+        <button onClick={handleNext}>
+          {currentQuestionIndex < questions.length - 1 ? t.next : t.finish}
+        </button>
       </div>
     </div>
   );

@@ -90,7 +90,7 @@ const ComparisonTest: React.FC<ComparisonTestProps> = ({ questions, onComplete }
         <button onClick={() => handleAnswerSelect("=")}>{t.equalTo}</button>
       </div>
       <div className={styles.navigation}>
-        {currentQuestionIndex < questions.length - 1 ? (
+        {/* {currentQuestionIndex < questions.length - 1 ? (
           <button onClick={handleNext}>
             {t.next}
           </button>
@@ -98,7 +98,10 @@ const ComparisonTest: React.FC<ComparisonTestProps> = ({ questions, onComplete }
           <button onClick={handleNext}>
             {t.finish}
           </button>
-        )}
+        )} */}
+        <button onClick={handleNext}>
+          {currentQuestionIndex < questions.length - 1 ? t.next : t.finish}
+        </button>
       </div>
     </div>
   );

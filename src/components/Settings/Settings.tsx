@@ -34,7 +34,7 @@ const translations = {
 };
 
 const Settings: React.FC<SettingsProps> = ({ onStart }) => {
-  const [count, setCount] = useState(10);
+  const [count, setCount] = useState(5);
   const [range, setRange] = useState(10);
   const [selectedOperators, setSelectedOperators] = useState<string[]>(["+", "-", "*", "/"]);
   const [testType, setTestType] = useState("arithmetic");

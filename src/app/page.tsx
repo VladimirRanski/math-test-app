@@ -19,7 +19,7 @@ import { Question } from '@/types';
 // };
 
 const Home: React.FC = () => {
-  const [questions, setQuestions] = useState<Question[] | null>(null);
+  const [questions, setQuestions] = useState<Question[]>([]); // Используем пустой массив по умолчанию
   const [result, setResult] = useState<{
     correct: number;
     total: number;
@@ -28,51 +28,45 @@ const Home: React.FC = () => {
     timeTaken: number;
   } | null>(null);
   const [error, setError] = useState<string | null>(null);
-  const [settings, setSettings] = useState<{ count: number, range: number, operators: string[], type?: string } | null>(null);
-
+  const [settings, setSettings] = useState<{ count: number, range: number, operators: string[], type: string } | null>(null);
   const [isLoading, setIsLoading] = useState(false);
 
-  const handleStart = async (count: number, range: number, operators: string[]) => {
-    setError(null); // Сбрасываем состояние ошибки
-    setSettings({ count, range, operators }); // Сохраняем настройки
+  const handleStart = async (count: number, range: number, operators: string[], type: string) => {
+    setError(null);
+    setSettings({ count, range, operators, type });
     setIsLoading(true);
     try {
-      const response = await fetch(`/api/generate?count=${count}&range=${range}&operators=${operators.join(",")}`);
+      const response = await fetch(`/api/generate?count=${count}&range=${range}&operators=${operators.join(",")}&type=${type}`);
       if (!response.ok) {
         throw new Error("Failed to fetch questions");
       }
-      const data: Question[] = await response.json();
+      const data = await response.json();
       setQuestions(data);
       setResult(null);
-    } catch (err) {
-      if (err instanceof Error) {
-        setError(err.message); // Проверка типа перед использованием
-      } else {
-        setError("An unknown error occurred."); // Обработка неизвестного типа ошибки
-      }
-    } finally {
-      setIsLoading(false);
+    } catch (err: any) { // Определяем тип как any
+      setError(err.message);
     }
+    setIsLoading(false);
   };
 
   const handleComplete = (correct: number, total: number, incorrectQuestions: Question[], timeTaken: number) => {
-    setResult({ correct, total, incorrectQuestions, questions: questions ?? [], timeTaken });
-    setQuestions(null);
+    setResult({ correct, total, incorrectQuestions, questions, timeTaken });
+    setQuestions([]); // Сбрасываем к пустому массиву
   };
 
   const handleRestart = () => {
-    setQuestions(null);
+    setQuestions([]);
     setResult(null);
   };
 
   return (
     <div className={styles.container}>
       {error && <div className={styles.error}>{error}</div>}
-      {!questions && !result && <Settings onStart={handleStart} />}
+      {questions.length === 0 && !result && <Settings onStart={handleStart} />}
       {isLoading && <div>Loading...</div>}
-      {questions && settings?.type === "arithmetic" && <Test questions={questions} onComplete={handleComplete} />}
-      {questions && settings?.type === "multiple_choice" && <MultipleChoiceTest questions={questions} onComplete={handleComplete} />}
-      {questions && settings?.type === "comparison" && <ComparisonTest questions={questions} onComplete={handleComplete} />}
+      {questions.length > 0 && settings?.type === "arithmetic" && <Test questions={questions} onComplete={handleComplete} />}
+      {questions.length > 0 && settings?.type === "multiple_choice" && <MultipleChoiceTest questions={questions} onComplete={handleComplete} />}
+      {questions.length > 0 && settings?.type === "comparison" && <ComparisonTest questions={questions} onComplete={handleComplete} />}
       {result && <Result result={result} onRestart={handleRestart} />}
     </div>
   );

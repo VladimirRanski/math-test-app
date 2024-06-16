@@ -3,15 +3,7 @@
 import React from "react";
 import { useLanguage } from "../../context/LanguageContext";
 import styles from "./Result.module.scss";
-
-type Question = {
-  num1: number;
-  num2: number;
-  operator?: string;
-  answer: number;
-  options?: number[];
-  userAnswer?: number | string;
-};
+import { Question } from '@/types';
 
 type ResultProps = {
   result: {
