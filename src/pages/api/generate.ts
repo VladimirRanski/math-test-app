@@ -1,12 +1,6 @@
+import { Example } from '@/types';
 import { NextApiRequest, NextApiResponse } from "next";
 
-type Example = {
-  num1: number;
-  num2: number;
-  operator?: string;
-  answer: number;
-  options?: number[];
-};
 
 // Функция для выполнения математической операции
 const calculateAnswer = (

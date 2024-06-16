@@ -3,43 +3,8 @@
 import React, { useState, useEffect } from "react";
 import { useLanguage } from "../../context/LanguageContext";
 import styles from "./Test.module.scss";
-import { Question } from '@/types';
-
-// type Question = {
-//   num1: number;
-//   num2: number;
-//   operator: string;
-//   answer: number;
-//   userAnswer?: number;
-// };
-
-type TestProps = {
-  questions: Question[];
-  onComplete: (
-    correct: number,
-    total: number,
-    incorrectQuestions: Question[],
-    timeTaken: number
-  ) => void;
-};
-
-// Переводы для теста
-const translations = {
-  en: {
-    submit: "Submit",
-    next: "Next",
-    back: "Back",
-    finish: "Finish",
-    question: "Question",
-  },
-  ru: {
-    submit: "Отправить",
-    next: "Далее",
-    back: "Назад",
-    finish: "Завершить",
-    question: "Вопрос",
-  },
-};
+import { TestProps } from '@/types';
+import { translations } from '@/translations';
 
 const Test: React.FC<TestProps> = ({ questions, onComplete }) => {
   const { language } = useLanguage();

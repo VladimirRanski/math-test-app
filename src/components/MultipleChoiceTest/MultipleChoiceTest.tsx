@@ -3,32 +3,8 @@
 import React, { useState, useEffect } from "react";
 import { useLanguage } from "../../context/LanguageContext";
 import styles from "./MultipleChoiceTest.module.scss";
-import { Question } from '@/types';
-
-type MultipleChoiceTestProps = {
-  questions: Question[];
-  onComplete: (
-    correct: number,
-    total: number,
-    incorrectQuestions: Question[],
-    timeTaken: number
-  ) => void;
-};
-
-const translations = {
-  en: {
-    question: "Question",
-    submit: "Submit",
-    next: "Next",
-    finish: "Finish",
-  },
-  ru: {
-    question: "Вопрос",
-    submit: "Отправить",
-    next: "Далее",
-    finish: "Завершить",
-  },
-};
+import { MultipleChoiceTestProps } from '@/types';
+import { translations } from '@/translations';
 
 const MultipleChoiceTest: React.FC<MultipleChoiceTestProps> = ({ questions, onComplete }) => {
   const { language } = useLanguage();

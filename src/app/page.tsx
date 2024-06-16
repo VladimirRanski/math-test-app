@@ -9,15 +9,6 @@ import Result from "../components/Result/Result";
 import styles from "./page.module.scss";
 import { Question } from '@/types';
 
-// type Question = {
-//   num1: number;
-//   num2: number;
-//   operator?: string;
-//   answer: number;
-//   options?: number[];
-//   userAnswer?: number | string;
-// };
-
 const Home: React.FC = () => {
   const [questions, setQuestions] = useState<Question[]>([]); // Используем пустой массив по умолчанию
   const [result, setResult] = useState<{

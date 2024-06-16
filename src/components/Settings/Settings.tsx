@@ -4,34 +4,8 @@ import React, { useState, useEffect } from "react";
 import { Language, useLanguage } from "../../context/LanguageContext";
 import { useTheme } from "../../context/ThemeContext";
 import styles from "./Settings.module.scss";
-
-type SettingsProps = {
-  onStart: (count: number, range: number, operators: string[], type: string) => void;
-};
-
-// Переводы для настроек
-const translations = {
-  en: {
-    numberOfQuestions: "Number of Questions:",
-    rangeOfNumbers: "Range of Numbers:",
-    operators: "Operators:",
-    testType: "Test Type:",
-    arithmetic: "Arithmetic",
-    multipleChoice: "Multiple Choice",
-    comparison: "Comparison",
-    startTest: "Start Test",
-  },
-  ru: {
-    numberOfQuestions: "Количество вопросов:",
-    rangeOfNumbers: "Диапазон чисел:",
-    operators: "Операторы:",
-    testType: "Тип теста:",
-    arithmetic: "Арифметика",
-    multipleChoice: "Множественный выбор",
-    comparison: "Сравнение",
-    startTest: "Начать тест",
-  },
-};
+import { SettingsProps } from '@/types';
+import { translations } from '@/translations';
 
 const Settings: React.FC<SettingsProps> = ({ onStart }) => {
   const [count, setCount] = useState(5);
