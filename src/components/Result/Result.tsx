@@ -3,11 +3,11 @@
 import React from "react";
 import { useLanguage } from "../../context/LanguageContext";
 import styles from "./Result.module.scss";
-import { ResultProps } from '@/types';
+import { TResultProps } from '@/types';
 import { translations } from '@/translations';
 
 
-const Result: React.FC<ResultProps> = ({ result, onRestart }) => {
+const Result: React.FC<TResultProps> = ({ result, onRestart }) => {
   const { language } = useLanguage();
   const t = translations[language];
 

@@ -3,10 +3,10 @@
 import React, { useState, useEffect } from "react";
 import { useLanguage } from "../../context/LanguageContext";
 import styles from "./Test.module.scss";
-import { TestProps } from '@/types';
+import { TTestProps } from '@/types';
 import { translations } from '@/translations';
 
-const Test: React.FC<TestProps> = ({ questions, onComplete }) => {
+const Test: React.FC<TTestProps> = ({ questions, onComplete }) => {
   const { language } = useLanguage();
   const t = translations[language];
 

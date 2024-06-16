@@ -1,4 +1,7 @@
-export const translations = {
+import { ITranslations } from './interfaces';
+import { TAvailableLanguages } from './types';
+
+export const translations: Record<TAvailableLanguages, ITranslations> = {
   en: {
     submit: "Submit",
     next: "Next",
@@ -50,5 +53,3 @@ export const translations = {
     startTest: "Начать тест",
   },
 };
-
-// export translations;

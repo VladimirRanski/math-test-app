@@ -3,10 +3,10 @@
 import React, { useState, useEffect } from "react";
 import { useLanguage } from "../../context/LanguageContext";
 import styles from "./MultipleChoiceTest.module.scss";
-import { MultipleChoiceTestProps } from '@/types';
+import { TMultipleChoiceTestProps } from '@/types';
 import { translations } from '@/translations';
 
-const MultipleChoiceTest: React.FC<MultipleChoiceTestProps> = ({ questions, onComplete }) => {
+const MultipleChoiceTest: React.FC<TMultipleChoiceTestProps> = ({ questions, onComplete }) => {
   const { language } = useLanguage();
   const t = translations[language];
 

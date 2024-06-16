@@ -1,11 +1,11 @@
 "use client";
 
-import { TimerProps } from '@/types';
+import { TTimerProps } from '@/types';
 import React, { useEffect, useState } from 'react';
 
 
 // Компонент таймера
-const Timer: React.FC<TimerProps> = ({ initialSeconds, onTimeUp }) => {
+const Timer: React.FC<TTimerProps> = ({ initialSeconds, onTimeUp }) => {
   const [seconds, setSeconds] = useState(initialSeconds);
 
   useEffect(() => {

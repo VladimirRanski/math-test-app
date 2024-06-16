@@ -1,6 +1,5 @@
-import { Example } from '@/types';
+import { TExample } from "@/types";
 import { NextApiRequest, NextApiResponse } from "next";
-
 
 // Функция для выполнения математической операции
 const calculateAnswer = (
@@ -40,7 +39,7 @@ const generateOptions = (correctAnswer: number, range: number): number[] => {
 // Генерация математических примеров
 export default function handler(req: NextApiRequest, res: NextApiResponse) {
   const { count, range, operators, type } = req.query;
-  const examples: Example[] = [];
+  const examples: TExample[] = [];
 
   const countNumber = Number(count);
   const rangeNumber = Number(range);

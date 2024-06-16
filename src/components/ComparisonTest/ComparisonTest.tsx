@@ -3,11 +3,11 @@
 import React, { useState, useEffect } from "react";
 import { useLanguage } from "../../context/LanguageContext";
 import styles from "./ComparisonTest.module.scss";
-import { ComparisonTestProps } from '@/types';
+import { TComparisonTestProps } from '@/types';
 import { translations } from '@/translations';
 
 
-const ComparisonTest: React.FC<ComparisonTestProps> = ({ questions, onComplete }) => {
+const ComparisonTest: React.FC<TComparisonTestProps> = ({ questions, onComplete }) => {
   const { language } = useLanguage();
   const t = translations[language];
 

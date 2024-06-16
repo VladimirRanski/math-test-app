@@ -1,4 +1,4 @@
-export type Question  = {
+export type TQuestion = {
   num1: number;
   num2: number;
   operator?: string;
@@ -7,7 +7,7 @@ export type Question  = {
   userAnswer?: number | string;
 };
 
-export type Example = {
+export type TExample = {
   num1: number;
   num2: number;
   operator?: string;
@@ -15,38 +15,38 @@ export type Example = {
   options?: number[];
 };
 
-export type ComparisonTestProps = {
-  questions: Question[];
+export type TComparisonTestProps = {
+  questions: TQuestion[];
   onComplete: (
     correct: number,
     total: number,
-    incorrectQuestions: Question[],
+    incorrectQuestions: TQuestion[],
     timeTaken: number
   ) => void;
 };
 
-export type MultipleChoiceTestProps = {
-  questions: Question[];
+export type TMultipleChoiceTestProps = {
+  questions: TQuestion[];
   onComplete: (
     correct: number,
     total: number,
-    incorrectQuestions: Question[],
+    incorrectQuestions: TQuestion[],
     timeTaken: number
   ) => void;
 };
 
-export type ResultProps = {
+export type TResultProps = {
   result: {
     correct: number;
     total: number;
-    incorrectQuestions: Question[];
-    questions: Question[];
+    incorrectQuestions: TQuestion[];
+    questions: TQuestion[];
     timeTaken: number;
   };
   onRestart: () => void;
 };
 
-export type SettingsProps = {
+export type TSettingsProps = {
   onStart: (
     count: number,
     range: number,
@@ -55,17 +55,19 @@ export type SettingsProps = {
   ) => void;
 };
 
-export type TestProps = {
-  questions: Question[];
+export type TTestProps = {
+  questions: TQuestion[];
   onComplete: (
     correct: number,
     total: number,
-    incorrectQuestions: Question[],
+    incorrectQuestions: TQuestion[],
     timeTaken: number
   ) => void;
 };
 
-export type TimerProps = {
+export type TTimerProps = {
   initialSeconds: number;
   onTimeUp: () => void;
 };
+
+export type TAvailableLanguages = "en" | "ru";

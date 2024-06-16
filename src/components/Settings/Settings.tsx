@@ -4,10 +4,10 @@ import React, { useState, useEffect } from "react";
 import { Language, useLanguage } from "../../context/LanguageContext";
 import { useTheme } from "../../context/ThemeContext";
 import styles from "./Settings.module.scss";
-import { SettingsProps } from '@/types';
+import { TSettingsProps } from '@/types';
 import { translations } from '@/translations';
 
-const Settings: React.FC<SettingsProps> = ({ onStart }) => {
+const Settings: React.FC<TSettingsProps> = ({ onStart }) => {
   const [count, setCount] = useState(5);
   const [range, setRange] = useState(10);
   const [selectedOperators, setSelectedOperators] = useState<string[]>(["+", "-", "*", "/"]);
