@@ -3,13 +3,14 @@
 import React, { useState, useEffect } from "react";
 import { useLanguage } from "../../context/LanguageContext";
 import styles from "./ComparisonTest.module.scss";
+import { Question } from '@/types';
 
-type Question = {
-  num1: number;
-  num2: number;
-  answer: number; // answer будет хранить разницу между num1 и num2
-  userAnswer?: string;
-};
+// type Question = {
+//   num1: number;
+//   num2: number;
+//   answer: number; // answer будет хранить разницу между num1 и num2
+//   userAnswer?: string;
+// };
 
 type ComparisonTestProps = {
   questions: Question[];

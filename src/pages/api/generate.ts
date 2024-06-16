@@ -12,7 +12,7 @@ type Example = {
 const calculateAnswer = (
   num1: number,
   num2: number,
-  operator: string
+  operator: string | undefined
 ): number => {
   switch (operator) {
     case "+":

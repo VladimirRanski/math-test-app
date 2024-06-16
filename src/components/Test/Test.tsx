@@ -3,14 +3,15 @@
 import React, { useState, useEffect } from "react";
 import { useLanguage } from "../../context/LanguageContext";
 import styles from "./Test.module.scss";
+import { Question } from '@/types';
 
-type Question = {
-  num1: number;
-  num2: number;
-  operator: string;
-  answer: number;
-  userAnswer?: number;
-};
+// type Question = {
+//   num1: number;
+//   num2: number;
+//   operator: string;
+//   answer: number;
+//   userAnswer?: number;
+// };
 
 type TestProps = {
   questions: Question[];

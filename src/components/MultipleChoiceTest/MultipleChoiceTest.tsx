@@ -3,15 +3,16 @@
 import React, { useState, useEffect } from "react";
 import { useLanguage } from "../../context/LanguageContext";
 import styles from "./MultipleChoiceTest.module.scss";
+import { Question } from '@/types';
 
-type Question = {
-  num1: number;
-  num2: number;
-  operator?: string;
-  answer: number;
-  options: number[];
-  userAnswer?: number;
-};
+// type Question = {
+//   num1: number;
+//   num2: number;
+//   operator?: string;
+//   answer: number;
+//   options: number[];
+//   userAnswer?: number;
+// };
 
 type MultipleChoiceTestProps = {
   questions: Question[];
@@ -80,7 +81,7 @@ const MultipleChoiceTest: React.FC<MultipleChoiceTestProps> = ({ questions, onCo
         {`${t.question} ${currentQuestionIndex + 1} / ${questions.length}: ${questions[currentQuestionIndex].num1} ${questions[currentQuestionIndex].operator} ${questions[currentQuestionIndex].num2} = ?`}
       </div>
       <div className={styles.options}>
-        {questions[currentQuestionIndex].options.map((option, index) => (
+        {questions[currentQuestionIndex].options?.map((option, index) => (
           <button key={index} onClick={() => handleAnswerSelect(option)}>
             {option}
           </button>
