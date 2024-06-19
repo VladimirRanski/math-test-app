@@ -3,25 +3,73 @@
   flex-direction: column;
   align-items: center;
   padding: 20px;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
-.test h2 {
+
+.question {
+  font-size: 1.5em;
+  font-weight: 600;
+  color: #67FB42;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.input[type=number]::-webkit-outer-spin-button,
+.input[type=number]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+}
+
+.input[type=number],
+.input[type=number]:hover,
+.input[type=number]:focus {
+  appearance: none;
+  -moz-appearance: textfield;
+}
+
+.input {
+  width: 322px;
+  height: 102px;
+  padding: 10px;
+  border: 1px solid #ced4da;
+  border-radius: 40px;
+  font-size: 16px;
+  color: red;
   margin-bottom: 20px;
+  background-color: #d9d9d9;
 }
-.test p {
-  margin-bottom: 20px;
+
+.input:focus {
+  outline: none;
+  border-color: #80bdff;
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
 }
-.test input[type=number] {
-  width: 100px;
-  padding: 5px;
-  margin: 0 auto 20px;
-  display: block;
+
+.navigation {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
 }
-.test button {
+
+.navigation button {
   padding: 10px 20px;
+  font-size: 16px;
+  font-weight: 600;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  border: none;
+  cursor: pointer;
+  width: 370px;
+  height: 150px;
+  clip-path: polygon(32.184% 4.844%, 32.184% 4.844%, 29.72% 2.13%, 27.258% 0.558%, 24.822% 0.004%, 22.431% 0.345%, 20.107% 1.458%, 17.871% 3.217%, 15.744% 5.5%, 13.748% 8.183%, 11.903% 11.142%, 10.231% 14.254%, 10.231% 14.254%, 9.493% 15.61%, 8.718% 16.856%, 7.916% 18.029%, 7.099% 19.162%, 6.281% 20.292%, 5.473% 21.453%, 4.688% 22.681%, 3.937% 24.01%, 3.233% 25.477%, 2.588% 27.115%, 2.588% 27.115%, 1.075% 33.623%, 0.234% 42.067%, 0.003% 51.755%, 0.322% 61.995%, 1.13% 72.097%, 2.366% 81.368%, 3.97% 89.118%, 5.88% 94.655%, 8.036% 97.286%, 10.377% 96.322%, 10.377% 96.322%, 12.809% 93.956%, 15.542% 92.377%, 18.493% 91.486%, 21.572% 91.186%, 24.695% 91.379%, 27.775% 91.967%, 30.725% 92.854%, 33.458% 93.94%, 35.888% 95.129%, 37.929% 96.322%, 37.929% 96.322%, 40.047% 97.515%, 42.566% 98.704%, 45.396% 99.79%, 48.446% 100.677%, 51.625% 101.265%, 54.844% 101.458%, 58.011% 101.158%, 61.037% 100.267%, 63.83% 98.688%, 66.301% 96.322%, 66.301% 96.322%, 67.881% 94.642%, 69.547% 93.331%, 71.281% 92.36%, 73.063% 91.698%, 74.873% 91.316%, 76.693% 91.185%, 78.504% 91.275%, 80.285% 91.556%, 82.018% 92%, 83.683% 92.575%, 83.683% 92.575%, 84.906% 92.913%, 86.131% 92.972%, 87.342% 92.735%, 88.522% 92.189%, 89.656% 91.318%, 90.726% 90.109%, 91.718% 88.545%, 92.613% 86.613%, 93.397% 84.297%, 94.054% 81.583%, 94.054% 81.583%, 94.736% 77.982%, 95.373% 74.153%, 95.947% 70.121%, 96.44% 65.909%, 96.838% 61.54%, 97.121% 57.038%, 97.275% 52.426%, 97.281% 47.728%, 97.123% 42.967%, 96.784% 38.166%, 96.784% 38.166%, 95.668% 29.67%, 94.077% 22.75%, 92.111% 17.244%, 89.873% 12.992%, 87.463% 9.834%, 84.983% 7.61%, 82.533% 6.159%, 80.216% 5.322%, 78.133% 4.937%, 76.384% 4.844%, 76.384% 4.844%, 74.244% 5.319%, 71.055% 6.534%, 67.021% 8.171%, 62.345% 9.914%, 57.23% 11.445%, 51.879% 12.449%, 46.495% 12.607%, 41.283% 11.604%, 36.445% 9.122%, 32.184% 4.844%);
+  background-color: #67FB42;
 }
-.test form {
-  text-align: center;
-}
-.test .btnBack {
-  margin-right: 20px;
+
+.navigation button:hover {
+  background-color: #0056b3;
 }

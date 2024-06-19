@@ -144,7 +144,7 @@ const Settings: React.FC<TSettingsProps> = ({ onStart }) => {
             </label>
           </div>
         </div>
-        <button type="submit">{t.startTest}</button>
+        <button className={styles.btn} type="submit">{t.startTest}</button>
       </form>
     </div>
   );

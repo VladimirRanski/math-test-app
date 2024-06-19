@@ -9,6 +9,21 @@ import Result from "../components/Result/Result";
 import styles from "./page.module.scss";
 import { TQuestion } from '@/types';
 
+import { Everlasting } from '@/fonts';
+// import localFont from 'next/font/local'
+
+// const Everlasting = localFont({
+//   src: './fonts/Everlasting.woff2',
+//   variable: '--second-family',
+//   display: 'swap',
+// })
+
+// const Cruinn = localFont({
+//   src: './fonts/Cruinn.woff2',
+//   variable: '--font-family',
+//   display: 'swap',
+// })
+
 const Home: React.FC = () => {
   const [questions, setQuestions] = useState<TQuestion[]>([]); // Используем пустой массив по умолчанию
   const [result, setResult] = useState<{
@@ -52,6 +67,7 @@ const Home: React.FC = () => {
 
   return (
     <div className={styles.container}>
+      <h1 className={Everlasting.className}>Тест по математике</h1>
       {error && <div className={styles.error}>{error}</div>}
       {questions.length === 0 && !result && <Settings onStart={handleStart} />}
       {isLoading && <div>Loading...</div>}
