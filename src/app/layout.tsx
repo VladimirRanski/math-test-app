@@ -1,25 +1,14 @@
-import "./globals.scss";
-import { LanguageProvider } from "../context/LanguageContext";
-import { ThemeProvider } from "../context/ThemeContext";
-import { ReactNode } from "react";
+import '../styles/globals.scss';
 
 export const metadata = {
-  title: "Math Test Generator",
-  description: "Generate and solve math tests",
+  title: 'Math Test',
+  description: 'A simple math test application',
 };
 
-export default function RootLayout({
-  children,
-}: {
-  children: ReactNode;
-}) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
-      <body>
-        <LanguageProvider>
-          <ThemeProvider>{children}</ThemeProvider>
-        </LanguageProvider>
-      </body>
+      <body>{children}</body>
     </html>
   );
 }
