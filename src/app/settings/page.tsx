@@ -1,6 +1,7 @@
 'use client'
 
 import React, { useState } from 'react';
+import Link from 'next/link';
 import styles from '../../styles/Settings.module.scss';
 
 const Settings: React.FC = () => {
@@ -24,6 +25,7 @@ const Settings: React.FC = () => {
           <option value="en">Английский</option>
         </select>
       </div>
+      <Link href="/">Назад</Link>
     </div>
   );
 };
